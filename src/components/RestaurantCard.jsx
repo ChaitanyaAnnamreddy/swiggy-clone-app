@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card, Popover, Tooltip, Button, Flex } from 'antd'
 import { CDN_URL } from '../utils/constants'
 import { FilterOutlined } from '@ant-design/icons'
+import Shimmer from '../components/Shimmer'
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
 const { Meta } = Card
 
-const RestaurantCard = ({ resObj }) => {
-  const [filteredRestaurants, setFilteredRestaurants] = useState(resObj)
-
-  return (
+const RestaurantCard = ({ restaurants, onFilterTopRated }) => {
+  return !restaurants || restaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <Flex vertical>
       <Flex gap="large">
         <div
@@ -32,18 +33,13 @@ const RestaurantCard = ({ resObj }) => {
           style={{ margin: '8px' }}
           className="filter"
           icon={<FilterOutlined />}
-          onClick={() => {
-            const filteredRestaurantsList = resObj.filter(
-              (resObj) => resObj.info.avgRating > 4.4
-            )
-            setFilteredRestaurants(filteredRestaurantsList)
-          }}
+          onClick={onFilterTopRated}
         >
           Top rated restaurants
         </Button>
       </Flex>
       <div className="res-card">
-        {filteredRestaurants.map((resObj) => (
+        {restaurants.map((resObj) => (
           <Card
             key={resObj.info.id}
             hoverable
@@ -63,12 +59,7 @@ const RestaurantCard = ({ resObj }) => {
             <Meta
               description={
                 <div className="res-description">
-                  <div
-                    style={{
-                      marginTop: '10px',
-                      display: 'flex',
-                    }}
-                  >
+                  <div style={{ marginTop: '10px', display: 'flex' }}>
                     {resObj.info.avgRating
                       ? `☆ ${resObj.info.avgRating}`
                       : 'No rating'}
@@ -78,18 +69,13 @@ const RestaurantCard = ({ resObj }) => {
                   <div>{resObj.info.sla.slaString}</div>
                   <Tooltip
                     title={resObj.info.cuisines.join(', ')}
-                    placement="bottom"
+                    placement="bottomLeft"
                   >
                     <div
                       style={{
-                        marginTop: '10px',
-                        textAlign: 'left',
-                        whiteSpace: 'nowrap',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        width: '100%',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {resObj.info.cuisines.join(', ')}

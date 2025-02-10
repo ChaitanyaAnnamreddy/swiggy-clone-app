@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Layout } from 'antd'
-import HeaderComponent from './components/Header'
+import { HeaderComponent } from './components/Header'
 import Carousal from './components/Carousel'
 import carouselData from './utils/carousel-data'
 import BestCuisines from './components/BestCuisines'
@@ -27,12 +27,16 @@ const footerStyle = {
   backgroundColor: '#f0f0f0',
 }
 
-const AppLayout = () => {
+export const AppLayout = () => {
+  const [searchText, setSearchText] = useState('')
   return (
     <div className="App">
       <Layout>
         <Header style={headerStyle}>
-          <HeaderComponent />
+          <HeaderComponent
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
         </Header>
         <Content style={contentStyle}>
           <div
@@ -51,7 +55,7 @@ const AppLayout = () => {
             Top restaurant chains in Bangalore
           </div>
           <Carousal restaurants={carouselData} />
-          <Body />
+          <Body searchText={searchText} />
           <BestCuisines bestCuisines={bestCuisines} />
         </Content>
         <Footer style={footerStyle}>Footer</Footer>

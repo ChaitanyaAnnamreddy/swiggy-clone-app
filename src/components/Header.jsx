@@ -1,5 +1,5 @@
-import React from 'react'
-import { Input, Image, Tabs, Avatar } from 'antd'
+import React, { useState } from 'react'
+import { Input, Image, Tabs, Avatar, Button, Flex } from 'antd'
 import {
   HomeOutlined,
   ContactsOutlined,
@@ -7,10 +7,11 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons'
 import { LOGO_URL } from '../utils/constants'
-
+import { useState } from 'react'
 const { Search } = Input
 
-export default HeaderComponent = () => {
+export const HeaderComponent = ({ searchText, setSearchText }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   return (
     <div className="header">
       <div className="logo-container">
@@ -19,11 +20,15 @@ export default HeaderComponent = () => {
       <div className="nav-items">
         <div className="search-bar">
           <Search
-            placeholder="Search..."
+            className="search-input"
+            placeholder="Search for restaurants..."
             allowClear
-            enterButton="Search"
+            enterButton
             size="large"
             style={{ width: 300 }}
+            value={searchText}
+            onSearch={(value) => setSearchText(value)}
+            onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
         <div>
@@ -61,6 +66,17 @@ export default HeaderComponent = () => {
             ]}
           />
         </div>
+        <Flex gap="medium" style={{ margin: '10px' }}>
+          <Button
+            width={100}
+            size="large"
+            type="primary"
+            danger={!isLoggedIn}
+            onClick={() => setIsLoggedIn(!isLoggedIn)}
+          >
+            {isLoggedIn ? 'Login' : 'Logout'}
+          </Button>
+        </Flex>
       </div>
     </div>
   )

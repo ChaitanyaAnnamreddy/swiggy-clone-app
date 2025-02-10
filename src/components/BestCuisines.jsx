@@ -19,7 +19,12 @@ export default BestCuisines = ({ bestCuisines }) => {
       </div>
       <Flex wrap gap="large" direction="row" justify="center">
         {bestCuisines.map((cuisine) => (
-          <Card href={cuisine.link} hoverable style={{ width: 400 }}>
+          <Card
+            href={cuisine.link}
+            key={cuisine.id}
+            hoverable
+            style={{ width: 400 }}
+          >
             <Meta title={cuisine.text} />
           </Card>
         ))}

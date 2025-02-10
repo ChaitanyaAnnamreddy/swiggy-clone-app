@@ -8,14 +8,7 @@ const getImageUrl = (id) => `${CDN_URL}${id}`
 
 export default Carousal = ({ restaurants }) => {
   return (
-    <Carousel
-      dots={false}
-      arrows
-      slidesToShow={4}
-      slidesToScroll={4}
-      infinite
-      autoplay
-    >
+    <Carousel dots={false} arrows slidesToShow={4} slidesToScroll={4} infinite>
       {restaurants.map((restaurant) => (
         <div key={restaurant.id} className="carousel-item">
           <Card hoverable style={{ width: 300, margin: 'auto' }}>
