@@ -2,7 +2,7 @@
 
 This is a Swiggy clone app built using React JS.
 
-## * React.createElement => ReactElement - JS Object => HTMLElement(render)
+## React.createElement => ReactElement - JS Object => HTMLElement(render)
 
 const heading = React.createElement('h1', { id: 'heading' }, 'Swiggy Clone App')
 console.log(heading)
