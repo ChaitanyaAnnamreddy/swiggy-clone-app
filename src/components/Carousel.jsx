@@ -8,10 +8,27 @@ const getImageUrl = (id) => `${CDN_URL}${id}`
 
 export const Carousal = ({ restaurants }) => {
   return (
-    <Carousel dots={false} arrows slidesToShow={4} slidesToScroll={4} infinite>
+    <Carousel
+      dots={false}
+      arrows
+      infinite
+      responsive={[
+        { breakpoint: 3000, settings: { slidesToShow: 4, slidesToScroll: 4 } },
+        { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 3 } },
+        { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+        { breakpoint: 576, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+      ]}
+    >
       {restaurants.map((restaurant) => (
         <div key={restaurant.id} className="carousel-item">
-          <Card hoverable style={{ width: 300, margin: 'auto' }}>
+          <Card
+            hoverable
+            style={{
+              width: '90%',
+              maxWidth: '300px',
+              margin: 'auto',
+            }}
+          >
             <Meta
               description={
                 <div className="res-description">
@@ -22,7 +39,7 @@ export const Carousal = ({ restaurants }) => {
                       borderRadius: '10px',
                     }}
                     preview={false}
-                    width={'auto'}
+                    width="100%"
                     src={getImageUrl(restaurant.cloudinaryImageId)}
                     alt="res-logo"
                   />
