@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Layout } from 'antd'
 import { HeaderComponent } from './components/Header'
-import Carousal from './components/Carousel'
-import carouselData from './utils/carousel-data'
+import { Carousal } from './components/Carousel'
+import { CarouselInfo } from './utils/carousel-data'
 import BestCuisines from './components/BestCuisines'
-import bestCuisines from './utils/best-cuisines'
+import { bestCuisines } from './utils/best-cuisines'
 import Body from './components/Body'
 
 const { Header, Footer, Content } = Layout
@@ -54,7 +54,7 @@ export const AppLayout = () => {
           >
             Top restaurant chains in Bangalore
           </div>
-          <Carousal restaurants={carouselData} />
+          <Carousal restaurants={CarouselInfo} />
           <Body searchText={searchText} />
           <BestCuisines bestCuisines={bestCuisines} />
         </Content>

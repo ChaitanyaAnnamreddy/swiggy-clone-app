@@ -1,4 +1,4 @@
-export default BestCuisines = [
+export const bestCuisines = [
   {
     id: 1,
     text: 'Chinese Restaurant Near Me',

@@ -1,4 +1,4 @@
-export default CarouselInfo = [
+export const CarouselInfo = [
   {
     id: '10576',
     name: 'Pizza Hut',

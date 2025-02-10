@@ -6,7 +6,7 @@ const { Meta } = Card
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
-export default Carousal = ({ restaurants }) => {
+export const Carousal = ({ restaurants }) => {
   return (
     <Carousel dots={false} arrows slidesToShow={4} slidesToScroll={4} infinite>
       {restaurants.map((restaurant) => (
