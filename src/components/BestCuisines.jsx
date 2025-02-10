@@ -2,7 +2,7 @@ import { Card, Flex } from 'antd'
 
 const { Meta } = Card
 
-export default BestCuisines = ({ bestCuisines }) => {
+export const BestCuisines = ({ bestCuisines }) => {
   return (
     <Flex vertical>
       <div

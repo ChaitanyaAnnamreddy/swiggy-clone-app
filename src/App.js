@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 import { HeaderComponent } from './components/Header'
 import { Carousal } from './components/Carousel'
 import { CarouselInfo } from './utils/carousel-data'
-import BestCuisines from './components/BestCuisines'
+import { BestCuisines } from './components/BestCuisines'
 import { bestCuisines } from './utils/best-cuisines'
 import Body from './components/Body'
 
