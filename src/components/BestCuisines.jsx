@@ -8,20 +8,18 @@ export default BestCuisines = ({ bestCuisines }) => {
       <div
         style={{
           color: 'black',
-          margin: '10px',
+          margin: '30px auto',
           fontFamily: 'Gilroy',
           fontWeight: '800',
           fontSize: '24px',
-          lineHeight: '28px',
           letterSpacing: '-0.4px',
-          textAlign: 'left',
         }}
       >
         Best Cuisines Near Me
       </div>
-      <Flex wrap gap="small">
+      <Flex wrap gap="large" direction="row" justify="center">
         {bestCuisines.map((cuisine) => (
-          <Card href={cuisine.link}>
+          <Card href={cuisine.link} hoverable style={{ width: 400 }}>
             <Meta title={cuisine.text} />
           </Card>
         ))}

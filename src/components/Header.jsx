@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Image, Tabs } from 'antd'
+import { Input, Image, Tabs, Avatar } from 'antd'
 import {
   HomeOutlined,
   ContactsOutlined,
@@ -50,6 +50,13 @@ export default HeaderComponent = () => {
                 key: '4',
                 label: 'Cart',
                 icon: <ShoppingCartOutlined />,
+              },
+              {
+                key: '5',
+                label: 'User',
+                icon: (
+                  <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
+                ),
               },
             ]}
           />

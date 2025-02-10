@@ -116,15 +116,7 @@ export default BestCuisines = [
     link: 'https://www.swiggy.com/maharashtrian-restaurants-near-me',
   },
   {
-    text: 'Nepalese Restaurant Near Me',
-    link: 'https://www.swiggy.com/nepalese-restaurants-near-me',
-  },
-  {
     text: 'Rajasthani Restaurant Near Me',
     link: 'https://www.swiggy.com/rajasthani-restaurants-near-me',
-  },
-  {
-    text: 'Turkish Restaurant Near Me',
-    link: 'https://www.swiggy.com/turkish-restaurants-near-me',
   },
 ]
