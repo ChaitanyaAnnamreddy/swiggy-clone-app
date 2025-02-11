@@ -5,6 +5,8 @@ const Body = ({ searchText }) => {
   const [allRestaurants, setAllRestaurants] = useState([])
   const [filteredRestaurants, setFilteredRestaurants] = useState([])
 
+  // const RestaurantOfferCard = withOffer(RestaurantCard)
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -19,6 +21,7 @@ const Body = ({ searchText }) => {
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants
     setAllRestaurants(restaurants)
     setFilteredRestaurants(restaurants)
+    console.log(restaurants)
   }
 
   useEffect(() => {
@@ -52,6 +55,7 @@ const Body = ({ searchText }) => {
           restaurants={filteredRestaurants}
           onFilterTopRated={handleFilterTopRated}
         />
+        {/* )} */}
       </div>
     </div>
   )

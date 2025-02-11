@@ -58,7 +58,7 @@ body {
 
 .ant-carousel {
   border-radius: 10px;
-  background-color: rgb(196, 215, 216);
+  background-color: oklch(0.21 0.034 264.665);
 }
 
 .search-bar {
@@ -84,4 +84,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 90vh;
+}
+
+.ant-layout-footer {
+  padding: 0 !important;
 }

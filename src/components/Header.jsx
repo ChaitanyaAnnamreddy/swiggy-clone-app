@@ -7,10 +7,10 @@ import {
   ShoppingCartOutlined,
 } from '@ant-design/icons'
 import { LOGO_URL } from '../utils/constants'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link } from 'react-router'
 import useOnlineStatus from '../utils/useOnlineStatus'
-import { WifiOutlined } from '@ant-design/icons'
+import UserContext from '../utils/UserContext'
 
 const { Text } = Typography
 
@@ -18,6 +18,8 @@ const { Search } = Input
 
 export const HeaderComponent = ({ searchText, setSearchText }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const data = useContext(UserContext)
 
   const isOnline = useOnlineStatus()
 
@@ -76,6 +78,7 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
         </div>
         <div>
           <Tabs
+
             // indicator={{ size: (origin) => origin, align: 'center' }}
             defaultActiveKey="1"
             items={[
@@ -101,18 +104,18 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
               },
               {
                 key: '5',
-                label: 'User',
-                icon: (
-                  <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
+                label: (
+                  <Button type="primary" icon={<UserOutlined />}>
+                    {data.loggedInUser}
+                  </Button>
                 ),
               },
             ]}
           />
         </div>
-        <Flex gap="medium" style={{ margin: '10px' }}>
+        <Flex gap="small" style={{ margin: '10px' }}>
           <Button
             width={100}
-            size="large"
             type="primary"
             danger={!isLoggedIn}
             onClick={() => setIsLoggedIn(!isLoggedIn)}

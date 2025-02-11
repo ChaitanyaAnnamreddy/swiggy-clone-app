@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Layout } from 'antd'
 import { HeaderComponent } from './components/Header'
@@ -13,13 +13,18 @@ import {
   Outlet,
   useOutletContext,
 } from 'react-router'
-import About from './components/About'
 import { Contact } from './components/Contact'
 import Error from './components/Error'
-import RestaurantMenu from './components/RestaurantMenu'
 import useOnlineStatus from './utils/useOnlineStatus'
+import ShimmerMenu from './components/ShimmerMenu'
+import ShimmerAbout from './components/ShimmerAbout'
+import UserContext from './utils/UserContext'
+import FooterComponent from './components/Footer'
 
 const { Header, Footer, Content } = Layout
+
+const RestaurantMenu = lazy(() => import('./components/RestaurantMenu'))
+const About = lazy(() => import('./components/About'))
 
 const headerStyle = {
   color: '#fff',
@@ -31,30 +36,36 @@ const contentStyle = {
   margin: '25% 0 !important',
 }
 
-const footerStyle = {
-  textAlign: 'center',
-  color: '#000000',
-  backgroundColor: '#f0f0f0',
-}
-
 export const AppLayout = () => {
   const [searchText, setSearchText] = useState('')
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    const data = {
+      name: 'Chaitanya',
+    }
+    setUserName(data.name)
+  }, [])
 
   return (
     <div className="App">
-      <Layout>
-        <Header style={headerStyle}>
-          <HeaderComponent
-            searchText={searchText}
-            setSearchText={setSearchText}
-          />
-        </Header>
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        <Layout>
+          <Header style={headerStyle}>
+            <HeaderComponent
+              searchText={searchText}
+              setSearchText={setSearchText}
+            />
+          </Header>
 
-        <Content style={contentStyle}>
-          <Outlet context={{ searchText }} />
-        </Content>
-        <Footer style={footerStyle}>Footer</Footer>
-      </Layout>
+          <Content style={contentStyle}>
+            <Outlet context={{ searchText }} />
+          </Content>
+          <Footer>
+            <FooterComponent />
+          </Footer>
+        </Layout>
+      </UserContext.Provider>
     </div>
   )
 }
@@ -111,7 +122,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/about',
-        element: <About />,
+        element: (
+          <Suspense fallback={<ShimmerAbout />}>
+            <About />
+          </Suspense>
+        ),
         errorElement: <Error />,
       },
       {
@@ -121,7 +136,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/restaurant/:resId',
-        element: <RestaurantMenu />,
+        element: (
+          <Suspense fallback={<ShimmerMenu />}>
+            <RestaurantMenu />
+          </Suspense>
+        ),
         errorElement: <Error />,
       },
     ],

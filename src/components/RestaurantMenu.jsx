@@ -9,7 +9,12 @@ import {
   Image,
   Button,
 } from 'antd'
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
+import {
+  PlusOutlined,
+  PlusCircleOutlined,
+  MinusOutlined,
+  MinusCircleOutlined,
+} from '@ant-design/icons'
 import ShimmerMenu from './ShimmerMenu'
 import { CDN_URL } from '../utils/constants'
 import { useParams } from 'react-router'
@@ -123,7 +128,7 @@ const RestaurantMenu = () => {
         accordion
         items={menuItems}
         expandIcon={({ isActive }) =>
-          isActive ? <MinusOutlined /> : <PlusOutlined />
+          isActive ? <MinusCircleOutlined /> : <PlusCircleOutlined />
         }
       />
     </Card>
