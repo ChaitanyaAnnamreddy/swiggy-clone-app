@@ -14,7 +14,7 @@ import {
   useOutletContext,
 } from 'react-router'
 import About from './components/About'
-import Contact from './components/Contact'
+import { Contact } from './components/Contact'
 import Error from './components/Error'
 
 const { Header, Footer, Content } = Layout
