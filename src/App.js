@@ -7,6 +7,15 @@ import { CarouselInfo } from './utils/carousel-data'
 import { BestCuisines } from './components/BestCuisines'
 import { bestCuisines } from './utils/best-cuisines'
 import Body from './components/Body'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  useOutletContext,
+} from 'react-router'
+import About from './components/About'
+import Contact from './components/Contact'
+import Error from './components/Error'
 
 const { Header, Footer, Content } = Layout
 
@@ -17,8 +26,7 @@ const headerStyle = {
 
 const contentStyle = {
   textAlign: 'center',
-  color: '#fff',
-  margin: '50px',
+  margin: '25% 0 !important',
 }
 
 const footerStyle = {
@@ -29,6 +37,7 @@ const footerStyle = {
 
 export const AppLayout = () => {
   const [searchText, setSearchText] = useState('')
+
   return (
     <div className="App">
       <Layout>
@@ -38,25 +47,9 @@ export const AppLayout = () => {
             setSearchText={setSearchText}
           />
         </Header>
+
         <Content style={contentStyle}>
-          <div
-            className="carousel"
-            style={{
-              color: 'black',
-              margin: '10px',
-              fontFamily: 'Gilroy',
-              fontWeight: '800',
-              fontSize: '24px',
-              lineHeight: '28px',
-              letterSpacing: '-0.4px',
-              textAlign: 'left',
-            }}
-          >
-            Top restaurant chains in Bangalore
-          </div>
-          <Carousal restaurants={CarouselInfo} />
-          <Body searchText={searchText} />
-          <BestCuisines bestCuisines={bestCuisines} />
+          <Outlet context={{ searchText }} />
         </Content>
         <Footer style={footerStyle}>Footer</Footer>
       </Layout>
@@ -64,5 +57,61 @@ export const AppLayout = () => {
   )
 }
 
+const HomePage = () => {
+  const { searchText } = useOutletContext()
+
+  return (
+    <>
+      <div
+        className="carousel"
+        style={{
+          color: 'black',
+          margin: '10px',
+          fontFamily: 'Gilroy',
+          fontWeight: '800',
+          fontSize: '24px',
+          lineHeight: '28px',
+          letterSpacing: '-0.4px',
+          textAlign: 'left',
+        }}
+      >
+        Top restaurant chains in Bangalore
+      </div>
+      <Carousal restaurants={CarouselInfo} />
+      <Body searchText={searchText} />
+      <BestCuisines bestCuisines={bestCuisines} />
+    </>
+  )
+}
+
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/about',
+        element: <About />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
+        errorElement: <Error />,
+      },
+    ],
+  },
+  // {
+  //   path: '/restaurant/:id',
+  //   element: <RestaurantMenu />,
+  // },
+])
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<AppLayout />)
+root.render(<RouterProvider router={appRouter} />)

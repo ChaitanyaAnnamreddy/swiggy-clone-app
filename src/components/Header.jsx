@@ -8,10 +8,13 @@ import {
 } from '@ant-design/icons'
 import { LOGO_URL } from '../utils/constants'
 import { useState } from 'react'
+import { Link } from 'react-router'
+
 const { Search } = Input
 
 export const HeaderComponent = ({ searchText, setSearchText }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   return (
     <div className="header">
       <div className="logo-container">
@@ -38,22 +41,22 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
             items={[
               {
                 key: '1',
-                label: 'Home',
+                label: <Link to="/">Home</Link>,
                 icon: <HomeOutlined />,
               },
               {
                 key: '2',
-                label: 'About',
+                label: <Link to="/about">About</Link>,
                 icon: <UserOutlined />,
               },
               {
                 key: '3',
-                label: 'Contact',
+                label: <Link to="/contact">Contact</Link>,
                 icon: <ContactsOutlined />,
               },
               {
                 key: '4',
-                label: 'Cart',
+                label: <Link to="/cart">Cart</Link>,
                 icon: <ShoppingCartOutlined />,
               },
               {
