@@ -1,19 +1,8 @@
 import React from 'react'
 import { Card } from 'antd'
-import styled from 'styled-components'
 import { Link } from 'react-router'
 
 const { Meta } = Card
-
-const StyledDiv = styled(Card)`
-  .ant-card-meta-description {
-    width: 100%;
-  }
-
-  .text-gray-500 {
-    align-items: start;
-  }
-`
 
 class UserClass extends React.Component {
   constructor(props) {

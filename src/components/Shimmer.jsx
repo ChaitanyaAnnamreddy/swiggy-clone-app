@@ -36,36 +36,44 @@ const Shimmer = () => {
         </div>
       </Flex>
       <Flex wrap gap="large" justify="center">
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
-        <Card style={{ width: 260 }}>
-          <Skeleton.Image active />
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
+          <Skeleton active />
+        </Card>
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
+          <Skeleton active />
+        </Card>
+        <Card style={{ width: 240 }}>
+          <Skeleton.Image active style={{ marginBottom: '20px' }} />
           <Skeleton active />
         </Card>
       </Flex>
