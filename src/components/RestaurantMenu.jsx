@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   Collapse,
   Card,
@@ -7,7 +7,6 @@ import {
   List,
   Flex,
   Image,
-  Space,
   Button,
 } from 'antd'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
@@ -20,47 +19,29 @@ const { Meta } = Card
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
+const IconText = ({ icon, text }) => (
+  <Button icon={React.createElement(icon)}>{text}</Button>
+)
+
 const RestaurantMenu = () => {
   const { resId } = useParams()
-
   const resInfo = useRestaurantMenu(resId)
 
-  const menuItems =
-    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[2]?.card
-      ?.card?.itemCards || []
+  if (!resInfo) return <ShimmerMenu />
 
-  const menuItems_1 =
-    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[3]?.card
-      ?.card?.itemCards || []
+  const menuCards =
+    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || []
 
-  const menuItems_2 =
-    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[4]?.card
-      ?.card?.itemCards || []
-
-  const menuItems_3 =
-    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[5]?.card
-      ?.card?.itemCards || []
-
-  const IconText = ({ icon, text }) => (
-    <Space>
-      <Button>
-        {React.createElement(icon)}
-        {text}
-      </Button>
-    </Space>
-  )
-
-  const items = [
-    {
-      key: resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[2]
-        ?.card?.card?.id,
-      label:
-        resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[2]
-          ?.card?.card?.title,
+  // Extract menu categories dynamically
+  const menuItems = menuCards
+    .filter((card) => card?.card?.card?.itemCards)
+    .map((card) => ({
+      key: card?.card?.card?.id,
+      label: card?.card?.card?.title,
       children: (
         <List
           itemLayout="horizontal"
-          dataSource={menuItems}
+          dataSource={card?.card?.card?.itemCards}
           renderItem={(item) => (
             <List.Item
               key={item.card.info.id}
@@ -74,22 +55,15 @@ const RestaurantMenu = () => {
                     src={getImageUrl(item.card.info.imageId)}
                     alt={item.card.info.name}
                   />
-                  <IconText
-                    icon={PlusOutlined}
-                    text="Add"
-                    key="list-vertical-star-o"
-                  />
+                  <IconText icon={PlusOutlined} text="Add" />
                 </Flex>
               }
             >
               <List.Item.Meta
-                style={{
-                  textAlign: 'start',
-                  width: '60%',
-                }}
+                style={{ textAlign: 'start', width: '60%' }}
                 title={item.card.info.name}
                 description={
-                  <Flex vertical className="resMenu-description" gap="small">
+                  <Flex vertical gap="small">
                     {item.card.info.description}
                     <span>{`₹ ${
                       item.card.info.price / 100 ||
@@ -102,252 +76,57 @@ const RestaurantMenu = () => {
           )}
         />
       ),
-    },
-    {
-      key: resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[3]
-        ?.card?.card?.id,
-      label:
-        resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[3]
-          ?.card?.card?.title,
-      children: (
-        <List
-          itemLayout="horizontal"
-          dataSource={menuItems_1}
-          renderItem={(item) => (
-            <List.Item
-              key={item.card.info.id}
-              actions={[]}
-              extra={
-                <Flex vertical align="center" gap="middle">
-                  <Image
-                    preview={false}
-                    width={100}
-                    height={100}
-                    style={{ objectFit: 'cover', borderRadius: '8px' }}
-                    src={getImageUrl(item.card.info.imageId)}
-                    alt={item.card.info.name}
-                  />
-                  <IconText
-                    icon={PlusOutlined}
-                    text="Add"
-                    key="list-vertical-star-o"
-                  />
-                </Flex>
-              }
-            >
-              <List.Item.Meta
-                style={{
-                  textAlign: 'start',
-                  width: '60%',
-                }}
-                title={item.card.info.name}
-                description={
-                  <Flex vertical className="resMenu-description" gap="small">
-                    {item.card.info.description}
-                    <span>{`₹ ${
-                      item.card.info.price / 100 ||
-                      item.card.info.defaultPrice / 100
-                    }`}</span>
-                  </Flex>
-                }
-              />
-            </List.Item>
-          )}
-        />
-      ),
-    },
-    {
-      key: resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[4]
-        ?.card?.card?.id,
-      label:
-        resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[4]
-          ?.card?.card?.title,
-      children: (
-        <List
-          itemLayout="horizontal"
-          dataSource={menuItems_2}
-          renderItem={(item) => (
-            <List.Item
-              key={item.card.info.id}
-              extra={
-                <Flex vertical align="center" gap="middle">
-                  <Image
-                    preview={false}
-                    width={100}
-                    height={100}
-                    style={{ objectFit: 'cover', borderRadius: '8px' }}
-                    src={getImageUrl(item.card.info.imageId)}
-                    alt={item.card.info.name}
-                  />
-                  <IconText
-                    icon={PlusOutlined}
-                    text="Add"
-                    key="list-vertical-star-o"
-                  />
-                </Flex>
-              }
-            >
-              <List.Item.Meta
-                style={{
-                  textAlign: 'start',
-                  width: '60%',
-                }}
-                title={item.card.info.name}
-                description={
-                  <Flex vertical className="resMenu-description" gap="small">
-                    {item.card.info.description}
-                    <span>{`₹ ${
-                      item.card.info.price / 100 ||
-                      item.card.info.defaultPrice / 100
-                    }`}</span>
-                  </Flex>
-                }
-              />
-            </List.Item>
-          )}
-        />
-      ),
-    },
-    {
-      key: resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[5]
-        ?.card?.card?.id,
-      label:
-        resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR.cards[5]
-          ?.card?.card?.title,
-      children: (
-        <List
-          itemLayout="horizontal"
-          dataSource={menuItems_3}
-          renderItem={(item) => (
-            <List.Item
-              key={item.card.info.id}
-              extra={
-                <Flex vertical align="center" gap="middle">
-                  <Image
-                    preview={false}
-                    width={100}
-                    height={100}
-                    style={{ objectFit: 'cover', borderRadius: '8px' }}
-                    src={getImageUrl(item.card.info.imageId)}
-                    alt={item.card.info.name}
-                  />
-                  <IconText
-                    icon={PlusOutlined}
-                    text="Add"
-                    key="list-vertical-star-o"
-                  />
-                </Flex>
-              }
-            >
-              <List.Item.Meta
-                style={{
-                  textAlign: 'start',
-                  width: '60%',
-                }}
-                title={item.card.info.name}
-                description={
-                  <Flex vertical className="resMenu-description" gap="small">
-                    {item.card.info.description}
-                    <span>{`₹ ${
-                      item.card.info.price / 100 ||
-                      item.card.info.defaultPrice / 100
-                    }`}</span>
-                  </Flex>
-                }
-              />
-            </List.Item>
-          )}
-        />
-      ),
-    },
-  ]
+    }))
 
-  return resInfo === null ? (
-    <ShimmerMenu />
-  ) : (
-    <>
-      <Card
-        className="user-card"
-        cover={
-          <img
-            alt="example"
-            src={getImageUrl(
-              resInfo?.data?.cards[2]?.card?.card?.info?.cloudinaryImageId
-            )}
-            style={{
-              width: '100%',
-              height: '400px',
-              objectFit: 'cover',
-            }}
-          />
+  return (
+    <Card
+      className="user-card"
+      cover={
+        <img
+          alt="Restaurant"
+          src={getImageUrl(
+            resInfo?.data?.cards[2]?.card?.card?.info?.cloudinaryImageId
+          )}
+          style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+        />
+      }
+    >
+      <Meta
+        title={resInfo?.data?.cards[2]?.card?.card?.info?.name}
+        description={
+          <Descriptions bordered>
+            <Descriptions.Item label="Cuisines" span={3}>
+              {resInfo?.data?.cards[2]?.card?.card?.info?.cuisines?.join(', ')}
+            </Descriptions.Item>
+            <Descriptions.Item label="Area">
+              {resInfo?.data?.cards[2]?.card?.card?.info?.city}
+            </Descriptions.Item>
+            <Descriptions.Item label="Total Ratings">
+              {resInfo?.data?.cards[2]?.card?.card?.info?.totalRatingsString}
+            </Descriptions.Item>
+          </Descriptions>
         }
-      >
-        <Meta
-          title={resInfo?.data?.cards[2]?.card?.card?.info?.name}
-          description={
-            <Descriptions
-              bordered
-              items={[
-                {
-                  key: '1',
-                  label: 'Cuisines',
-                  span: 3,
-                  children:
-                    resInfo?.data?.cards[2]?.card?.card?.info?.cuisines?.join(
-                      ', '
-                    ),
-                },
-                {
-                  key: '2',
-                  label: 'Area',
-                  span: 2,
-                  children: resInfo?.data?.cards[2]?.card?.card?.info?.city,
-                },
-                {
-                  key: '3',
-                  label: 'Total ratings',
-                  span: 2,
-                  children:
-                    resInfo?.data?.cards[2]?.card?.card?.info
-                      ?.totalRatingsString,
-                },
-              ]}
-            />
-          }
-        />
-        <Divider />
-        <Descriptions
-          column={2}
-          items={[
-            {
-              key: '1',
-              label: 'Avg Time',
-              children:
-                resInfo?.data?.cards[2]?.card?.card?.info?.sla?.deliveryTime +
-                ' mins',
-            },
-            {
-              key: '2',
-              label: 'Cost',
-              children:
-                resInfo?.data?.cards[2]?.card?.card?.info?.costForTwoMessage,
-            },
-          ]}
-        />
-        <Divider />
-        <Collapse
-          style={{
-            textAlign: 'left',
-          }}
-          expandIconPosition="end"
-          accordion
-          items={items}
-          expandIcon={({ isActive }) =>
-            isActive ? <MinusOutlined /> : <PlusOutlined />
-          }
-        />
-      </Card>
-    </>
+      />
+      <Divider />
+      <Descriptions column={2}>
+        <Descriptions.Item label="Avg Time">
+          {resInfo?.data?.cards[2]?.card?.card?.info?.sla?.deliveryTime} mins
+        </Descriptions.Item>
+        <Descriptions.Item label="Cost">
+          {resInfo?.data?.cards[2]?.card?.card?.info?.costForTwoMessage}
+        </Descriptions.Item>
+      </Descriptions>
+      <Divider />
+      <Collapse
+        defaultActiveKey={[menuItems[0].key]}
+        expandIconPosition="end"
+        accordion
+        items={menuItems}
+        expandIcon={({ isActive }) =>
+          isActive ? <MinusOutlined /> : <PlusOutlined />
+        }
+      />
+    </Card>
   )
 }
 

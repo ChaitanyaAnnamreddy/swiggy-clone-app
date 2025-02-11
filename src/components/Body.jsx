@@ -11,11 +11,9 @@ const Body = ({ searchText }) => {
 
   const fetchData = async () => {
     const data = await fetch(
-      'https://api.allorigins.win/raw?url=' +
-        encodeURIComponent(
-          'https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING'
-        )
+      'https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING'
     )
+
     const json = await data.json()
     const restaurants =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants
@@ -46,7 +44,7 @@ const Body = ({ searchText }) => {
     )
     setFilteredRestaurants(topRated)
   }
-  console.log('all', allRestaurants)
+
   return (
     <div className="body">
       <div className="res-container">

@@ -1,21 +1,18 @@
-import { Empty, Flex } from 'antd'
-import { useRouteError } from 'react-router'
+import React from 'react'
+import { Button, Result } from 'antd'
+import { Link } from 'react-router'
 
-const Error = () => {
-  const error = useRouteError()
-  console.log(error)
+const App = () => (
+  <Result
+    status="404"
+    title="404"
+    subTitle="Sorry, the page you visited does not exist."
+    extra={
+      <Button type="primary">
+        <Link to="/">Back Home</Link>
+      </Button>
+    }
+  />
+)
 
-  return (
-    <Flex
-      vertical
-      justify="center"
-      align="center"
-      style={{ margin: '20% auto' }}
-    >
-      <Empty />
-      {/* <h1 style={{ margin: '6px 0px' }}>{error.status}</h1> */}
-      {/* <p style={{ margin: '6px 0px' }}>{error.statusText}</p> */}
-    </Flex>
-  )
-}
-export default Error
+export default App

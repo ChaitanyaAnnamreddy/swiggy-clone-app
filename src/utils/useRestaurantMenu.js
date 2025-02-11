@@ -10,11 +10,9 @@ const useRestaurantMenu = (resId) => {
 
   const fetchMenu = async () => {
     const data = await fetch(
-      'https://api.allorigins.win/raw?url=' +
-        encodeURIComponent(MENU_API + resId)
+      'https://thingproxy.freeboard.io/fetch/' + MENU_API + resId
     )
     const json = await data.json()
-    console.log(json)
     setResInfo(json)
   }
   return resInfo

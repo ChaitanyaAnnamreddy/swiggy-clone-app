@@ -17,6 +17,7 @@ import About from './components/About'
 import { Contact } from './components/Contact'
 import Error from './components/Error'
 import RestaurantMenu from './components/RestaurantMenu'
+import useOnlineStatus from './utils/useOnlineStatus'
 
 const { Header, Footer, Content } = Layout
 
@@ -60,6 +61,18 @@ export const AppLayout = () => {
 
 const HomePage = () => {
   const { searchText } = useOutletContext()
+
+  const onlineStatus = useOnlineStatus()
+
+  if (!onlineStatus) {
+    return (
+      <div className="body">
+        <div className="online-container">
+          <h1>Please check your internet connection</h1>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
