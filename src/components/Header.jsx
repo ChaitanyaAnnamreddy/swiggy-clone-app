@@ -18,7 +18,9 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
   return (
     <div className="header">
       <div className="logo-container">
-        <Image preview={false} width={50} src={LOGO_URL} alt="logo" />
+        <Link to="/">
+          <Image preview={false} width={50} src={LOGO_URL} alt="logo" />
+        </Link>
       </div>
       <div className="nav-items">
         <div className="search-bar">

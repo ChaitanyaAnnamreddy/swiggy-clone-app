@@ -29,6 +29,7 @@ body {
   justify-content: start;
   align-items: stretch;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .ant-card {
@@ -69,5 +70,9 @@ body {
 }
 
 .user-card {
-  margin: 6px 25% !important;
+  margin: 6px 15% !important;
+}
+
+.resMenu-description {
+  width: 90%;
 }

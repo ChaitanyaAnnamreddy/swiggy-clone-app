@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'antd'
+import { Card, Skeleton } from 'antd'
 import { Link } from 'react-router'
 
 const { Meta } = Card
@@ -31,21 +31,30 @@ class UserClass extends React.Component {
       <Card
         className="user-card"
         cover={
-          <img
-            alt={name}
-            src={avatar_url}
-            style={{
-              width: '50%',
-              height: '50%',
-              alignItems: 'center',
-              margin: '20px auto 0px',
-              borderRadius: '50%',
-            }}
-          />
+          avatar_url ? (
+            <img
+              alt={name}
+              src={avatar_url}
+              style={{
+                width: '50%',
+                height: '50%',
+                alignItems: 'center',
+                margin: '20px auto 0px',
+                borderRadius: '50%',
+              }}
+            />
+          ) : (
+            <Skeleton.Image
+              active
+              style={{
+                margin: '10px',
+              }}
+            />
+          )
         }
       >
         <Meta
-          title={name}
+          title={name ? name : <Skeleton.Input />}
           description={
             <div className="justify-start">
               <p className="text-gray-500 mt-2">
@@ -61,7 +70,7 @@ class UserClass extends React.Component {
                 complex workflows and drive business success.
               </p>
               <p className="text-gray-500 mt-2">
-                <b>Location: </b> Bangalore{' '}
+                <b>Location: </b> Bangalore
               </p>
             </div>
           }

@@ -16,6 +16,7 @@ import {
 import About from './components/About'
 import { Contact } from './components/Contact'
 import Error from './components/Error'
+import RestaurantMenu from './components/RestaurantMenu'
 
 const { Header, Footer, Content } = Layout
 
@@ -105,12 +106,13 @@ const appRouter = createBrowserRouter([
         element: <Contact />,
         errorElement: <Error />,
       },
+      {
+        path: '/restaurant/:resId',
+        element: <RestaurantMenu />,
+        errorElement: <Error />,
+      },
     ],
   },
-  // {
-  //   path: '/restaurant/:id',
-  //   element: <RestaurantMenu />,
-  // },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

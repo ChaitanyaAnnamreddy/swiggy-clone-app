@@ -9,6 +9,20 @@ const Body = ({ searchText }) => {
     fetchData()
   }, [])
 
+  const fetchData = async () => {
+    const data = await fetch(
+      'https://api.allorigins.win/raw?url=' +
+        encodeURIComponent(
+          'https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING'
+        )
+    )
+    const json = await data.json()
+    const restaurants =
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants
+    setAllRestaurants(restaurants)
+    setFilteredRestaurants(restaurants)
+  }
+
   useEffect(() => {
     if (searchText) {
       const filtered = allRestaurants.filter(
@@ -26,27 +40,13 @@ const Body = ({ searchText }) => {
     }
   }, [searchText, allRestaurants])
 
-  const fetchData = async () => {
-    const data = await fetch(
-      'https://api.allorigins.win/raw?url=' +
-        encodeURIComponent(
-          'https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING'
-        )
-    )
-    const json = await data.json()
-    const restaurants =
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle.restaurants
-    setAllRestaurants(restaurants)
-    setFilteredRestaurants(restaurants)
-  }
-
   const handleFilterTopRated = () => {
     const topRated = filteredRestaurants.filter(
       (resObj) => resObj.info.avgRating >= 4.5
     )
     setFilteredRestaurants(topRated)
   }
-
+  console.log('all', allRestaurants)
   return (
     <div className="body">
       <div className="res-container">

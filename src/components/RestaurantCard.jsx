@@ -3,6 +3,7 @@ import { Card, Popover, Tooltip, Button, Flex } from 'antd'
 import { CDN_URL } from '../utils/constants'
 import { FilterOutlined } from '@ant-design/icons'
 import Shimmer from '../components/Shimmer'
+import { Link } from 'react-router'
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
@@ -40,51 +41,53 @@ const RestaurantCard = ({ restaurants, onFilterTopRated }) => {
       </Flex>
       <div className="res-card">
         {restaurants.map((resObj) => (
-          <Card
-            key={resObj.info.id}
-            hoverable
-            style={{ width: 260 }}
-            cover={
-              <img
-                alt="res-logo"
-                src={getImageUrl(resObj.info.cloudinaryImageId)}
-                width={240}
-                height={240}
-              />
-            }
-          >
-            <Popover content={resObj.info.name}>
-              <Meta title={resObj.info.name} />
-            </Popover>
-            <Meta
-              description={
-                <div className="res-description">
-                  <div style={{ marginTop: '10px', display: 'flex' }}>
-                    {resObj.info.avgRating
-                      ? `☆ ${resObj.info.avgRating}`
-                      : 'No rating'}
-                    <div style={{ margin: '0px 10px' }}>{'|'}</div>
-                    <div>{resObj.info.costForTwo}</div>
-                  </div>
-                  <div>{resObj.info.sla.slaString}</div>
-                  <Tooltip
-                    title={resObj.info.cuisines.join(', ')}
-                    placement="bottomLeft"
-                  >
-                    <div
-                      style={{
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {resObj.info.cuisines.join(', ')}
-                    </div>
-                  </Tooltip>
-                </div>
+          <Link to={`/restaurant/${resObj.info?.id}`} key={resObj.info?.id}>
+            <Card
+              key={resObj.info.id}
+              hoverable
+              style={{ width: 260, height: 520 }}
+              cover={
+                <img
+                  alt="res-logo"
+                  src={getImageUrl(resObj.info.cloudinaryImageId)}
+                  width={240}
+                  height={240}
+                />
               }
-            />
-          </Card>
+            >
+              <Popover content={resObj.info.name}>
+                <Meta title={resObj.info.name} />
+              </Popover>
+              <Meta
+                description={
+                  <div className="res-description">
+                    <div style={{ marginTop: '10px', display: 'flex' }}>
+                      {resObj.info.avgRating
+                        ? `☆ ${resObj.info.avgRating}`
+                        : 'No rating'}
+                      <div style={{ margin: '0px 10px' }}>{'|'}</div>
+                      <div>{resObj.info.costForTwo}</div>
+                    </div>
+                    <div>{resObj.info.sla.slaString}</div>
+                    <Tooltip
+                      title={resObj.info.cuisines.join(', ')}
+                      placement="bottomLeft"
+                    >
+                      <div
+                        style={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        {resObj.info.cuisines.join(', ')}
+                      </div>
+                    </Tooltip>
+                  </div>
+                }
+              />
+            </Card>
+          </Link>
         ))}
       </div>
     </Flex>

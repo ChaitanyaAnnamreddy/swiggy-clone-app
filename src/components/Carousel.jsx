@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Image, Carousel } from 'antd'
 import { CDN_URL } from '../utils/constants'
+import { Link } from 'react-router'
 
 const { Meta } = Card
 
@@ -21,44 +22,46 @@ export const Carousal = ({ restaurants }) => {
     >
       {restaurants.map((restaurant) => (
         <div key={restaurant.id} className="carousel-item">
-          <Card
-            hoverable
-            style={{
-              width: '90%',
-              maxWidth: '300px',
-              margin: 'auto',
-            }}
-          >
-            <Meta
-              description={
-                <div className="res-description">
-                  <Image
-                    style={{
-                      margin: '10px auto',
-                      display: 'block',
-                      borderRadius: '10px',
-                    }}
-                    preview={false}
-                    width="100%"
-                    src={getImageUrl(restaurant.cloudinaryImageId)}
-                    alt="res-logo"
-                  />
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      fontWeight: 'bold',
-                      color: 'black',
-                    }}
-                  >
-                    {restaurant.name}
+          <Link to={`/restaurant/${restaurant.id}`}>
+            <Card
+              hoverable
+              style={{
+                width: '90%',
+                maxWidth: '300px',
+                margin: 'auto',
+              }}
+            >
+              <Meta
+                description={
+                  <div className="res-description">
+                    <Image
+                      style={{
+                        margin: '10px auto',
+                        display: 'block',
+                        borderRadius: '10px',
+                      }}
+                      preview={false}
+                      width="100%"
+                      src={getImageUrl(restaurant.cloudinaryImageId)}
+                      alt="res-logo"
+                    />
+                    <div
+                      style={{
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        color: 'black',
+                      }}
+                    >
+                      {restaurant.name}
+                    </div>
+                    <div>{restaurant.areaName}</div>
+                    <div>{restaurant.sla.slaString}</div>
+                    <div>{restaurant.costForTwo}</div>
                   </div>
-                  <div>{restaurant.areaName}</div>
-                  <div>{restaurant.sla.slaString}</div>
-                  <div>{restaurant.costForTwo}</div>
-                </div>
-              }
-            />
-          </Card>
+                }
+              />
+            </Card>
+          </Link>
         </div>
       ))}
     </Carousel>
