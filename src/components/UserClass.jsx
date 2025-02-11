@@ -35,8 +35,8 @@ class UserClass extends React.Component {
               alt={name}
               src={avatar_url}
               style={{
-                width: '50%',
-                height: '50%',
+                width: '20%',
+                height: '20%',
                 alignItems: 'center',
                 margin: '20px auto 0px',
                 borderRadius: '50%',

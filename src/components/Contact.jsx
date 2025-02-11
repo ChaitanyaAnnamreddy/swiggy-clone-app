@@ -33,7 +33,7 @@ export const Contact = () => (
         name="message"
         rules={[{ required: true, message: 'Please input your message!' }]}
       >
-        <TextArea rows={12} />
+        <TextArea rows={4} />
       </Form.Item>
 
       <Form.Item label={null}>

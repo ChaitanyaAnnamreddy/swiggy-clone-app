@@ -3,10 +3,14 @@ body {
 }
 
 .header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   background-color: #f0f0f0;
   margin: 0px -20px;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 
 .ant-layout-header {
@@ -72,7 +76,7 @@ body {
 }
 
 .user-card {
-  margin: 6px 15% !important;
+  margin: 20px 15% !important;
 }
 
 .resMenu-description {
@@ -87,5 +91,9 @@ body {
 }
 
 .ant-layout-footer {
+  padding: 0 !important;
+}
+
+.ant-tabs .ant-tabs-tab {
   padding: 0 !important;
 }
