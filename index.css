@@ -13,12 +13,6 @@ body {
   z-index: 100;
 }
 
-@media (max-width: 425px) {
-  .header {
-    margin: 0px;
-  }
-}
-
 .logo-container {
   margin: 4px 20px;
 }
@@ -100,7 +94,7 @@ body {
 @media (max-width: 425px) {
   .nav-items {
     display: grid;
-    margin: 6px;
+    margin: 0px 30px;
   }
 }
 
@@ -145,4 +139,10 @@ body {
 
 .ant-collapse-header-text {
   text-align: start !important;
+}
+
+@media (max-width: 425px) {
+  .ant-layout-content {
+    margin: 50px 20px !important;
+  }
 }
