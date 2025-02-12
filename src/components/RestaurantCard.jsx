@@ -55,7 +55,7 @@ const RestaurantCard = ({ restaurants, onFilterTopRated }) => {
     <Shimmer />
   ) : (
     <Flex vertical>
-      <Flex gap="large">
+      <Flex gap="large" className="res-info">
         <div
           className="res-info"
           style={{

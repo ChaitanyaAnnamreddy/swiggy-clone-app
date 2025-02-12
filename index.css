@@ -164,3 +164,10 @@ body {
     margin: 50px 0 !important;
   }
 }
+
+@media (max-width: 425px) {
+  .res-info {
+    flex-direction: column !important;
+    gap: 0px;
+  }
+}
