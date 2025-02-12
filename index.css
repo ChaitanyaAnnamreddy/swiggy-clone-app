@@ -233,3 +233,16 @@ body {
     margin: 24px !important;
   }
 }
+
+@media (max-width: 768px) {
+  .footer-logo {
+    display: grid;
+    flex-direction: column;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
