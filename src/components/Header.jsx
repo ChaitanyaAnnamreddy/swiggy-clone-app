@@ -144,7 +144,7 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
               },
               {
                 key: '4',
-                label: <Link to="/contact">Contact</Link>,
+                label: <Link to="/contact" className='contact-header'>Contact</Link>,
                 icon: <ContactsOutlined />,
               },
 
