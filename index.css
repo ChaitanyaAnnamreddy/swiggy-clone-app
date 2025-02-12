@@ -101,3 +101,7 @@ body {
 .ant-modal-footer {
   text-align: center !important;
 }
+
+.ant-collapse-header-text {
+  text-align: start !important;
+}

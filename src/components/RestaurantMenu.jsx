@@ -30,6 +30,7 @@ const getImageUrl = (id) => `${CDN_URL}${id}`
 const RestaurantMenu = () => {
   const { resId } = useParams()
   const resInfo = useRestaurantMenu(resId)
+  console.log('resInfo', resInfo)
 
   const dispatch = useDispatch()
 
@@ -82,10 +83,8 @@ const RestaurantMenu = () => {
                     {item.card.info.description}
                     <span>
                       ₹{' '}
-                      {(
-                        (item.card.info.price ?? item.card.info.defaultPrice) /
-                        100
-                      )}
+                      {(item.card.info.price ?? item.card.info.defaultPrice) /
+                        100}
                     </span>
                   </Flex>
                 }
@@ -113,20 +112,20 @@ const RestaurantMenu = () => {
         title={resInfo?.data?.cards[2]?.card?.card?.info?.name}
         description={
           <Descriptions bordered>
-            <Descriptions.Item label="Cuisines" span={3}>
+            <Descriptions.Item label="Cuisines" span={2}>
               {resInfo?.data?.cards[2]?.card?.card?.info?.cuisines?.join(', ')}
             </Descriptions.Item>
-            <Descriptions.Item label="Area">
-              {resInfo?.data?.cards[2]?.card?.card?.info?.city}
-            </Descriptions.Item>
-            <Descriptions.Item label="Total Ratings">
+            <Descriptions.Item label="Total Ratings" span={2}>
               {resInfo?.data?.cards[2]?.card?.card?.info?.totalRatingsString}
+            </Descriptions.Item>
+            <Descriptions.Item label="Address" span={3}>
+              {resInfo?.data?.cards[2]?.card?.card?.info?.labels[1].message}
             </Descriptions.Item>
           </Descriptions>
         }
       />
       <Divider />
-      <Descriptions column={2}>
+      <Descriptions column={2} style={{ margin: '0px 0 0 15%' }}>
         <Descriptions.Item label="Avg Time">
           {resInfo?.data?.cards[2]?.card?.card?.info?.sla?.deliveryTime} mins
         </Descriptions.Item>
@@ -136,6 +135,7 @@ const RestaurantMenu = () => {
       </Descriptions>
       <Divider />
       <Collapse
+        size="large"
         defaultActiveKey={[menuItems[0].key]}
         expandIconPosition="end"
         accordion
