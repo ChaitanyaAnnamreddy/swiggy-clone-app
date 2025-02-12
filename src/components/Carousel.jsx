@@ -1,13 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Image, Carousel } from 'antd'
 import { CDN_URL } from '../utils/constants'
 import { Link } from 'react-router'
+import ShimmerCarousel from './ShimmerCarousel'
 
 const { Meta } = Card
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
-export const Carousal = ({ restaurants }) => {
+export const Carousal = () => {
+  const [restaurants, setRestaurants] = useState([])
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      const data = await fetch(
+        `https://instafood.onrender.com/api/restaurants?lat=12.9351929&lng=77.62448069999999`
+      )
+      const json = await data.json()
+      const fetchedRestaurants =
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || []
+
+      console.log('res', fetchedRestaurants)
+      setRestaurants(fetchedRestaurants)
+    } catch (error) {
+      console.error('Error fetching restaurants:', error)
+    }
+  }
+
   return (
     <Carousel
       dots={false}
@@ -20,50 +44,56 @@ export const Carousal = ({ restaurants }) => {
         { breakpoint: 576, settings: { slidesToShow: 1, slidesToScroll: 1 } },
       ]}
     >
-      {restaurants.map((restaurant) => (
-        <div key={restaurant.id} className="carousel-item">
-          <Link to={`/restaurant/${restaurant.id}`}>
-            <Card
-              hoverable
-              style={{
-                width: '90%',
-                maxWidth: '300px',
-                margin: 'auto',
-              }}
-            >
-              <Meta
-                description={
-                  <div className="res-description">
-                    <Image
-                      style={{
-                        margin: '10px auto',
-                        display: 'block',
-                        borderRadius: '10px',
-                      }}
-                      preview={false}
-                      width="100%"
-                      src={getImageUrl(restaurant.cloudinaryImageId)}
-                      alt="res-logo"
-                    />
-                    <div
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                        color: 'black',
-                      }}
-                    >
-                      {restaurant.name}
-                    </div>
-                    <div>{restaurant.areaName}</div>
-                    <div>{restaurant.sla.slaString}</div>
-                    <div>{restaurant.costForTwo}</div>
-                  </div>
-                }
-              />
-            </Card>
-          </Link>
-        </div>
-      ))}
+      {restaurants.length > 0 ? (
+        [...restaurants] // Clone the array to avoid mutating the original state
+          .sort(() => Math.random() - 0.5) // Shuffle the array
+          .map((restaurant) => (
+            <div key={restaurant?.info?.id} className="carousel-item">
+              <Link to={`/restaurant/${restaurant?.info?.id}`}>
+                <Card
+                  hoverable
+                  style={{
+                    width: '90%',
+                    maxWidth: '300px',
+                    margin: 'auto',
+                  }}
+                >
+                  <Meta
+                    description={
+                      <div className="res-description">
+                        <Image
+                          style={{
+                            margin: '10px auto',
+                            display: 'block',
+                            borderRadius: '10px',
+                          }}
+                          preview={false}
+                          width="100%"
+                          src={getImageUrl(restaurant?.info?.cloudinaryImageId)}
+                          alt="res-logo"
+                        />
+                        <div
+                          style={{
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            color: 'black',
+                          }}
+                        >
+                          {restaurant?.info?.name}
+                        </div>
+                        <div>{restaurant?.info?.areaName}</div>
+                        <div>{restaurant?.info?.sla?.slaString}</div>
+                        <div>{restaurant?.info?.costForTwo}</div>
+                      </div>
+                    }
+                  />
+                </Card>
+              </Link>
+            </div>
+          ))
+      ) : (
+        <ShimmerCarousel />
+      )}
     </Carousel>
   )
 }

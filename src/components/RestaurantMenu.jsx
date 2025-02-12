@@ -46,7 +46,7 @@ const RestaurantMenu = ({ menuItems1 }) => {
       description: (
         <Flex vertical gap="small">
           {item.card.info.name} has been added to cart
-          <Flex align="center">
+          <Flex align="center" justify="center">
             <Button type="primary" onClick={() => navigate('/cart')}>
               View Cart
             </Button>
@@ -55,7 +55,8 @@ const RestaurantMenu = ({ menuItems1 }) => {
       ),
       icon: <ShoppingCartOutlined style={{ color: '#52c41a' }} />,
       placement: 'bottom',
-      duration: 5,
+      duration: 10,
+      showProgress: true,
     })
   }
 

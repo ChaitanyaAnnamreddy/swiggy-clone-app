@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { Layout } from 'antd'
 import { HeaderComponent } from './components/Header'
 import { Carousal } from './components/Carousel'
-import { CarouselInfo } from './utils/carousel-data'
 import { BestCuisines } from './components/BestCuisines'
 import { bestCuisines } from './utils/best-cuisines'
 import Body from './components/Body'
@@ -109,7 +108,7 @@ const HomePage = () => {
       >
         Top restaurant chains in Bangalore
       </div>
-      <Carousal restaurants={CarouselInfo} />
+      <Carousal />
       <Body searchText={searchText} />
       <BestCuisines bestCuisines={bestCuisines} />
     </>
