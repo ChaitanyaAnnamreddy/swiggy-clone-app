@@ -126,7 +126,7 @@ const RestaurantMenu = ({ menuItems1 }) => {
     <>
       {contextHolder}
       <Card
-        className="user-card"
+        className="user-card user-card-menu"
         cover={
           <img
             alt="Restaurant"
