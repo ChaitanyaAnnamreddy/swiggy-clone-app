@@ -22,6 +22,7 @@ import { useParams } from 'react-router'
 import useRestaurantMenu from '../utils/useRestaurantMenu'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../utils/cartSlice'
+import { useNavigate } from 'react-router'
 
 const { Meta } = Card
 
@@ -32,6 +33,8 @@ const RestaurantMenu = ({ menuItems1 }) => {
   const resInfo = useRestaurantMenu(resId)
   const dispatch = useDispatch()
 
+  const navigate = useNavigate()
+
   const [api, contextHolder] = notification.useNotification()
   console.log('menuItems', menuItems1)
 
@@ -40,10 +43,18 @@ const RestaurantMenu = ({ menuItems1 }) => {
 
     // Show notification
     api.success({
-      message: `${item.card.info.name}`,
-      description: `${item.card.info.name} has been added to cart`,
+      description: (
+        <Flex vertical gap="small">
+          {item.card.info.name} has been added to cart
+          <Flex align="center">
+            <Button type="primary" onClick={() => navigate('/cart')}>
+              View Cart
+            </Button>
+          </Flex>
+        </Flex>
+      ),
       icon: <ShoppingCartOutlined style={{ color: '#52c41a' }} />,
-      placement: 'bottomLeft',
+      placement: 'bottom',
       duration: 5,
     })
   }
