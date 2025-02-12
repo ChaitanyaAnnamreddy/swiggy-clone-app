@@ -39,3 +39,4 @@ const JSXHeading = () => <h1 id="jsxHeading">Swiggy Clone JSX App</h1>
 
 - - read the data from store(get the data from the store)
 - - we need to subscribe to the store with the help of selector and then we can get the data from the store
+
