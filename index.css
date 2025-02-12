@@ -131,7 +131,6 @@ body {
 
 @media (max-width: 768px) {
   .nav-items {
-    margin: 0px 0px 0px 30px !important;
     justify-content: space-evenly;
   }
 }
