@@ -116,11 +116,6 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
               },
               {
                 key: '3',
-                label: <Link to="/contact">Contact</Link>,
-                icon: <ContactsOutlined />,
-              },
-              {
-                key: '4',
                 icon: (
                   <Link to="/cart">
                     <div className="relative py-2">
@@ -147,6 +142,12 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
                   </Link>
                 ),
               },
+              {
+                key: '4',
+                label: <Link to="/contact">Contact</Link>,
+                icon: <ContactsOutlined />,
+              },
+
               {
                 key: '5',
                 label: (
