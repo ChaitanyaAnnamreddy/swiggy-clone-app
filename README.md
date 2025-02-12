@@ -41,3 +41,16 @@ const JSXHeading = () => <h1 id="jsxHeading">Swiggy Clone JSX App</h1>
 
 - - read the data from store(get the data from the store)
 - - we need to subscribe to the store with the help of selector and then we can get the data from the store
+ 
+<h1>Key Features</h1>
+◉ Multi Select Cuisines Based Restaurant Filter. 
+◉ Search Based Restaurants Filter. 
+◉ Shimmer UI 
+◉ CORS Extension For Fetching Swiggy Live API Data from Swiggy Public APIs. 
+◉ Tailwind CSS 
+◉ Class Based Components. 
+◉ React Router DOM for routing & navigation 
+◉ Lazy Loading 
+◉ Context API 
+◉ Lifting The State Up
+
