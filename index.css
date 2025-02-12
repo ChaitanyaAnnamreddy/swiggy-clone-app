@@ -160,7 +160,7 @@ body {
 
 @media (max-width: 768px) {
   .user-card {
-    margin: 20px 0 !important; /* Removes side margins on mobile */
+    margin: 100px 0 !important; /* Removes side margins on mobile */
   }
 }
 
@@ -197,6 +197,12 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .ant-layout-content {
+    margin: 100px 20px !important;
+  }
+}
+
 @media (max-width: 425px) {
   .best-cuisine-card {
     width: 100% !important;
@@ -219,5 +225,11 @@ body {
   .res-info {
     flex-direction: column !important;
     gap: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter {
+    margin: 24px !important;
   }
 }
