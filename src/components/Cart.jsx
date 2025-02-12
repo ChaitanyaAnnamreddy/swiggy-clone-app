@@ -1,17 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { CDN_URL } from '../utils/constants'
 import { useNavigate } from 'react-router'
 import { clearCart } from '../utils/cartSlice'
 import { Modal, Button, Result } from 'antd' // Import Ant Design components
+import { updateQuantity, removeItem } from '../utils/cartSlice'
 
 const Cart = () => {
-  const cartItems = useSelector((store) => store.cart.items)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  //   const [quantity, setQuantity] = useState(item.quantity)
+
+  const cartItems = useSelector((store) => store.cart.items)
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   const getImageUrl = (id) => `${CDN_URL}${id}`
+
+  useEffect(() => {
+    console.log('Updated cartItems in Redux state:', cartItems)
+  }, [cartItems])
 
   const groupedItems = Array.from(
     cartItems
@@ -37,10 +46,43 @@ const Cart = () => {
 
   const uniqueCartItems = Object.values(groupedItems)
 
-  // Function to place order & clear cart
   const placeOrder = () => {
-    dispatch(clearCart()) // Clear cart
-    setIsModalOpen(true) // Show success modal
+    dispatch(clearCart())
+    setIsModalOpen(true)
+  }
+
+  const increaseQuantity = (id) => {
+    console.log('increaseQuantity called with id:', id)
+
+    const item = cartItems.find((i) => i.card?.info?.id === id)
+    if (!item) {
+      console.error(`Item with ID ${id} not found in cartItems`)
+      return
+    }
+
+    const newQuantity = item.quantity + 1
+    console.log('Updated quantity:', newQuantity)
+
+    dispatch(updateQuantity({ id, quantity: newQuantity }))
+  }
+
+  const decreaseQuantity = (id) => {
+    console.log('decreaseQuantity called with id:', id)
+    console.log('cartItems:', cartItems)
+
+    const item = cartItems.find((i) => i.card?.info?.id === id)
+
+    if (!item) {
+      console.error(`Item with ID ${id} not found in cartItems`)
+      return
+    }
+
+    // Ensure quantity doesn't go below 1
+    if (item.quantity > 1) {
+      dispatch(updateQuantity({ id, quantity: item.quantity - 1 }))
+    } else {
+      dispatch(removeItem(id)) // Remove item if quantity is 1
+    }
   }
 
   return (
@@ -84,19 +126,68 @@ const Cart = () => {
                       />
 
                       {/* Quantity Selector */}
+
                       <div className="flex items-center justify-between md:order-3 md:justify-end">
                         <div className="flex items-center">
+                          <button
+                            onClick={() => decreaseQuantity(item.card.info.id)}
+                            className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+                          >
+                            <svg
+                              className="h-2.5 w-2.5 text-gray-900 dark:text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 18 2"
+                            >
+                              <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M1 1h16"
+                              />
+                            </svg>
+                          </button>
                           <input
                             type="text"
                             className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-extrabold text-gray-900 dark:text-white"
-                            value={item.quantity}
+                            value={
+                              cartItems.find(
+                                (i) => i.card?.info?.id === item.card.info.id
+                              )?.quantity || 1
+                            }
                             readOnly
                           />
+                          <button
+                            onClick={() => increaseQuantity(item.card.info.id)}
+                            className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600"
+                          >
+                            <svg
+                              className="h-2.5 w-2.5 text-gray-900 dark:text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 18 18"
+                            >
+                              <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M9 1v16M1 9h16"
+                              />
+                            </svg>
+                          </button>
                         </div>
+
                         {/* Product Price */}
+
                         <div className="text-end md:order-4 md:w-32">
                           <p className="text-base font-bold text-gray-900 dark:text-white">
-                            ₹{item.totalPrice / 100}
+                            ₹
+                            {(cartItems.find(
+                              (i) => i.card?.info?.id === item.card.info.id
+                            )?.quantity || 1) *
+                              (item.card.info.price / 100)}
                           </p>
                         </div>
                       </div>
@@ -130,10 +221,18 @@ const Cart = () => {
                     className="flex items-center justify-between gap-4 border-gray-200 pt-2 dark:border-gray-700"
                   >
                     <dt className="text-base font-semibold text-left text-gray-300">
-                      {`${item.quantity} x ${item.card.info.name}`}
+                      {`${
+                        cartItems.find(
+                          (i) => i.card?.info?.id === item.card.info.id
+                        )?.quantity || 1
+                      } x ${item.card.info.name}`}
                     </dt>
                     <dd className="text-base font-bold text-gray-300">
-                      ₹{item.totalPrice / 100}
+                      ₹
+                      {(cartItems.find(
+                        (i) => i.card?.info?.id === item.card.info.id
+                      )?.quantity || 1) *
+                        (item.card.info.price / 100)}
                     </dd>
                   </dl>
                 ))}
@@ -145,10 +244,11 @@ const Cart = () => {
                   </dt>
                   <dd className="text-base font-bold text-gray-900 dark:text-white">
                     ₹
-                    {uniqueCartItems.reduce(
-                      (acc, item) => acc + item.totalPrice,
+                    {cartItems.reduce(
+                      (total, item) =>
+                        total + (item.quantity * item.card.info.price) / 100,
                       0
-                    ) / 100}
+                    )}
                   </dd>
                 </dl>
 

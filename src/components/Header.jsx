@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input, Image, Tabs, Avatar, Button, Flex, Typography } from 'antd'
+import { Input, Image, Tabs, Button, Flex, Typography } from 'antd'
 import {
   HomeOutlined,
   ContactsOutlined,
@@ -11,9 +11,7 @@ import { useState, useContext } from 'react'
 import { Link } from 'react-router'
 import useOnlineStatus from '../utils/useOnlineStatus'
 import UserContext from '../utils/UserContext'
-import { useSelector, useDispatch } from 'react-redux'
-import { addItem, removeItem, clearCart } from '../utils/cartSlice'
-
+import { useSelector } from 'react-redux'
 const { Text } = Typography
 
 const { Search } = Input
@@ -27,8 +25,10 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
 
   // useSelector will subscribe to the store and whenever the store gets updated it will re-render the component
   // we need access to cart items from the store
-  const cartItems = useSelector((store) => store.cart.items)
-  console.log(cartItems)
+  const cartItemCount = useSelector((store) =>
+    store.cart.items.reduce((total, item) => total + item.quantity, 0)
+  )
+  console.log(cartItemCount)
   // const dispatch = useDispatch()
 
   // const handleAddItem = (item) => {
@@ -123,14 +123,14 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
                     <div className="relative py-2">
                       <div className="t-0 absolute left-3">
                         <p className="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">
-                          {cartItems.length}
+                          {cartItemCount}
                         </p>
                       </div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="currentColor"
                         className="file: mt-4 h-6 w-6"
                       >
