@@ -13,6 +13,10 @@ body {
   z-index: 100;
 }
 
+.logo-container {
+  margin: 4px 20px;
+}
+
 .ant-layout-header {
   padding: 0px 20px !important;
 }
@@ -76,7 +80,7 @@ body {
 }
 
 .user-card {
-  margin: 20px 15% !important;
+  margin: 20px 20% !important;
 }
 
 .resMenu-description {

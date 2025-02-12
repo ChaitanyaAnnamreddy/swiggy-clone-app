@@ -12,6 +12,8 @@ import { Link } from 'react-router'
 import useOnlineStatus from '../utils/useOnlineStatus'
 import UserContext from '../utils/UserContext'
 import { useSelector } from 'react-redux'
+import logo from '../assets/logo.png'
+
 const { Text } = Typography
 
 const { Search } = Input
@@ -28,7 +30,7 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
   const cartItemCount = useSelector((store) =>
     store.cart.items.reduce((total, item) => total + item.quantity, 0)
   )
-  console.log(cartItemCount)
+
   // const dispatch = useDispatch()
 
   // const handleAddItem = (item) => {
@@ -47,7 +49,7 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
     <div className="header">
       <div className="logo-container">
         <Link to="/">
-          <Image preview={false} width={50} src={LOGO_URL} alt="logo" />
+          <Image preview={false} width={100} src={logo} alt="logo" />
         </Link>
       </div>
 

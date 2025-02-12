@@ -13,7 +13,6 @@ import {
 import {
   PlusOutlined,
   PlusCircleOutlined,
-  MinusOutlined,
   MinusCircleOutlined,
   ShoppingCartOutlined,
 } from '@ant-design/icons'
@@ -22,19 +21,19 @@ import { CDN_URL } from '../utils/constants'
 import { useParams } from 'react-router'
 import useRestaurantMenu from '../utils/useRestaurantMenu'
 import { useDispatch } from 'react-redux'
-import { addItem, removeItem, clearCart } from '../utils/cartSlice'
-import { useSelector } from 'react-redux'
+import { addItem } from '../utils/cartSlice'
 
 const { Meta } = Card
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
-const RestaurantMenu = () => {
+const RestaurantMenu = ({ menuItems1 }) => {
   const { resId } = useParams()
   const resInfo = useRestaurantMenu(resId)
   const dispatch = useDispatch()
 
   const [api, contextHolder] = notification.useNotification()
+  console.log('menuItems', menuItems1)
 
   const handleAddItem = (item) => {
     dispatch(addItem(item))
@@ -52,7 +51,13 @@ const RestaurantMenu = () => {
   if (!resInfo) return <ShimmerMenu />
 
   const menuCards =
-    resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || []
+    menuItems1[0]?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards ||
+    []
+  const cover =
+    resInfo?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+      ?.restaurants
+  const selectedRestaurant = cover?.find((r) => r.info.id === resId)
+  console.log('resInfo-2', resInfo)
 
   const menuItems = menuCards
     .filter((card) => card?.card?.card?.itemCards)
@@ -113,41 +118,32 @@ const RestaurantMenu = () => {
         cover={
           <img
             alt="Restaurant"
-            src={getImageUrl(
-              resInfo?.data?.cards[2]?.card?.card?.info?.cloudinaryImageId
-            )}
-            style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+            src={getImageUrl(selectedRestaurant?.info?.cloudinaryImageId)}
+            style={{ height: '400px', objectFit: 'cover' }}
           />
         }
       >
         <Meta
-          title={resInfo?.data?.cards[2]?.card?.card?.info?.name}
+          title={selectedRestaurant?.info?.name}
           description={
             <Descriptions bordered>
-              <Descriptions.Item label="Cuisines" span={2}>
-                {resInfo?.data?.cards[2]?.card?.card?.info?.cuisines?.join(
-                  ', '
-                )}
+              <Descriptions.Item label="Cuisines" span={3}>
+                {selectedRestaurant?.info?.cuisines?.join(', ')}
               </Descriptions.Item>
-              <Descriptions.Item label="Total Ratings" span={2}>
-                {resInfo?.data?.cards[2]?.card?.card?.info?.totalRatingsString}
+              <Descriptions.Item label="Total Ratings" span={1}>
+                {selectedRestaurant?.info?.totalRatingsString}
               </Descriptions.Item>
-              <Descriptions.Item label="Address" span={3}>
-                {resInfo?.data?.cards[2]?.card?.card?.info?.labels[1].message}
+              <Descriptions.Item label="Cost" span={1}>
+                {selectedRestaurant?.info?.costForTwo}
+              </Descriptions.Item>
+              <Descriptions.Item label="Avg Time">
+                {selectedRestaurant?.info?.sla?.deliveryTime} mins
               </Descriptions.Item>
             </Descriptions>
           }
         />
         <Divider />
-        <Descriptions column={2} style={{ margin: '0px 0 0 15%' }}>
-          <Descriptions.Item label="Avg Time">
-            {resInfo?.data?.cards[2]?.card?.card?.info?.sla?.deliveryTime} mins
-          </Descriptions.Item>
-          <Descriptions.Item label="Cost">
-            {resInfo?.data?.cards[2]?.card?.card?.info?.costForTwoMessage}
-          </Descriptions.Item>
-        </Descriptions>
-        <Divider />
+
         <Collapse
           size="large"
           defaultActiveKey={[menuItems[0]?.key]}

@@ -1,7 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
-import { Image } from 'antd'
-import { LOGO_URL } from '../utils/constants'
+import logo from '../assets/logo.png'
 
 const Footer = () => {
   return (
@@ -11,7 +9,7 @@ const Footer = () => {
           <div className="mb-6 md:mb-0 md:flex md:justify-between">
             <a href="/" className="flex items-center">
               <img
-                src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"
+                src={logo}
                 className="h-8 me-3"
                 alt="FlowBite Logo"
               />

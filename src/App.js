@@ -24,6 +24,7 @@ import FooterComponent from './components/Footer'
 import { Provider } from 'react-redux'
 import appStore from './utils/appStore'
 import OrderSuccess from './components/OrderSuccess'
+import { menuItems } from './utils/menu-items'
 
 const { Header, Footer, Content } = Layout
 
@@ -154,7 +155,7 @@ const appRouter = createBrowserRouter([
         path: '/restaurant/:resId',
         element: (
           <Suspense fallback={<ShimmerMenu />}>
-            <RestaurantMenu />
+            <RestaurantMenu menuItems1={menuItems} />
           </Suspense>
         ),
         errorElement: <Error />,
