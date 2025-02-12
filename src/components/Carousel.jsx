@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Image, Carousel } from 'antd'
+import { Card, Image, Carousel, Tooltip } from 'antd'
 import { CDN_URL } from '../utils/constants'
 import { Link } from 'react-router'
 import ShimmerCarousel from './ShimmerCarousel'
@@ -72,18 +72,29 @@ export const Carousal = () => {
                           src={getImageUrl(restaurant?.info?.cloudinaryImageId)}
                           alt="res-logo"
                         />
-                        <div
-                          style={{
-                            textAlign: 'center',
-                            fontWeight: 'bold',
-                            color: 'black',
-                          }}
-                        >
-                          {restaurant?.info?.name}
-                        </div>
+                        <Tooltip title={restaurant?.info?.name}>
+                          <div
+                            style={{
+                              textAlign: 'center',
+                              fontWeight: 'bold',
+                              color: 'black',
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              maxWidth: '100%', // Ensures it doesn’t exceed the container
+                              display: 'inline-block', // Makes ellipsis work
+                              verticalAlign: 'middle', // Keeps alignment clean
+                            }}
+                          >
+                            {restaurant?.info?.name}
+                          </div>
+                        </Tooltip>
                         <div>{restaurant?.info?.areaName}</div>
-                        <div>{restaurant?.info?.sla?.slaString}</div>
-                        <div>{restaurant?.info?.costForTwo}</div>
+                        <div>
+                          {restaurant?.info?.sla?.slaString} -{' '}
+                          {restaurant?.info?.costForTwo}
+                        </div>
+                        <div></div>
                       </div>
                     }
                   />
