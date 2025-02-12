@@ -22,6 +22,7 @@ export const BestCuisines = ({ bestCuisines }) => {
         {bestCuisines.map((cuisine) => (
           <Link to={cuisine.link} key={cuisine.id}>
             <Card
+              className="best-cuisine-card"
               href={cuisine.link}
               key={cuisine.id}
               hoverable

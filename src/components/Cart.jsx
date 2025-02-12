@@ -86,7 +86,7 @@ const Cart = () => {
   }
 
   return (
-    <section className="bg-white py-8 antialiased dark:bg-white-1000 md:py-16 m-10 rounded-lg">
+    <section className="bg-white py-8 antialiased dark:bg-white-1000 md:py-16 m-10 rounded-lg cart-card">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
           {/* Cart Items */}

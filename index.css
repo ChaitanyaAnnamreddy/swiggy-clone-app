@@ -54,6 +54,12 @@ body {
   gap: 10px;
 }
 
+@media (max-width: 425px) {
+  .res-card {
+    justify-content: space-around;
+  }
+}
+
 .ant-card {
   margin: 6px !important;
 }
@@ -144,5 +150,17 @@ body {
 @media (max-width: 425px) {
   .ant-layout-content {
     margin: 50px 20px !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .best-cuisine-card {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .cart-card {
+    margin: 50px 0 !important;
   }
 }
