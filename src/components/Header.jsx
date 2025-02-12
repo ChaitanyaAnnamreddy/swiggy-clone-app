@@ -55,6 +55,7 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
 
       <div className="nav-items">
         <Flex
+          className="online"
           align="center"
           gap={8}
           style={{ marginTop: '-10px', marginRight: '10px' }}
@@ -150,6 +151,7 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
                 key: '5',
                 label: (
                   <Button
+                    className="user-button"
                     type="primary"
                     icon={<UserOutlined />}
                     style={{ margin: '10px' }}

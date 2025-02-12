@@ -13,8 +13,26 @@ body {
   z-index: 100;
 }
 
+@media (max-width: 425px) {
+  .header {
+    margin: 0px;
+  }
+}
+
 .logo-container {
   margin: 4px 20px;
+}
+
+@media (max-width: 425px) {
+  .logo-container {
+    display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .user-button {
+    display: none;
+  }
 }
 
 .ant-layout-header {
@@ -79,8 +97,27 @@ body {
   display: flex;
 }
 
+@media (max-width: 425px) {
+  .nav-items {
+    display: grid;
+    margin: 6px;
+  }
+}
+
+@media (max-width: 425px) {
+  .online {
+    display: none;
+  }
+}
+
 .user-card {
   margin: 20px 20% !important;
+}
+
+@media (max-width: 425px) {
+  .user-card {
+    margin: 20px 0 !important; /* Removes side margins on mobile */
+  }
 }
 
 .resMenu-description {
