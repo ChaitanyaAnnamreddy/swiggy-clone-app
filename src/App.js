@@ -14,12 +14,16 @@ import {
   useOutletContext,
 } from 'react-router'
 import { Contact } from './components/Contact'
+import Cart from './components/Cart'
 import Error from './components/Error'
 import useOnlineStatus from './utils/useOnlineStatus'
 import ShimmerMenu from './components/ShimmerMenu'
 import ShimmerAbout from './components/ShimmerAbout'
 import UserContext from './utils/UserContext'
 import FooterComponent from './components/Footer'
+import { Provider } from 'react-redux'
+import appStore from './utils/appStore'
+import OrderSuccess from './components/OrderSuccess'
 
 const { Header, Footer, Content } = Layout
 
@@ -48,25 +52,27 @@ export const AppLayout = () => {
   }, [])
 
   return (
-    <div className="App">
+    <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName }}>
-        <Layout>
-          <Header style={headerStyle}>
-            <HeaderComponent
-              searchText={searchText}
-              setSearchText={setSearchText}
-            />
-          </Header>
+        <div className="App">
+          <Layout>
+            <Header style={headerStyle}>
+              <HeaderComponent
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
+            </Header>
 
-          <Content style={contentStyle}>
-            <Outlet context={{ searchText }} />
-          </Content>
-          <Footer>
-            <FooterComponent />
-          </Footer>
-        </Layout>
+            <Content style={contentStyle}>
+              <Outlet context={{ searchText }} />
+            </Content>
+            <Footer>
+              <FooterComponent />
+            </Footer>
+          </Layout>
+        </div>
       </UserContext.Provider>
-    </div>
+    </Provider>
   )
 }
 
@@ -132,6 +138,16 @@ const appRouter = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/success',
+        element: <OrderSuccess />,
         errorElement: <Error />,
       },
       {

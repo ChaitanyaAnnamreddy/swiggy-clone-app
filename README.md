@@ -23,3 +23,19 @@ const JSXHeading = () => <h1 id="jsxHeading">Swiggy Clone JSX App</h1>
 ## Higher Order Components
 
 - - a component that takes a component and returns a new component
+
+### context API 
+- - provides a way to pass data through the component tree without having to manually pass props through it
+- - it is a built-in API of React
+- - it is a concept of higher order functions - a function that takes a function as an argument or returns a function as a result
+
+### Redux 
+
+- install 2 libraries @reduxjs/toolkit(npm i @reduxjs/toolkit) from npm package and react-redux(npm i react-redux)
+- build our store 
+- connect our store to the component
+- create a slice(cartSlice)
+- - when we click a button we want to change the state of the component so we will dispatch an action to the store with the help of reducer fn and then the reducer fn will modify the slice of redux store
+
+- - read the data from store(get the data from the store)
+- - we need to subscribe to the store with the help of selector and then we can get the data from the store

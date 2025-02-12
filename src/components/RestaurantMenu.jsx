@@ -19,18 +19,23 @@ import ShimmerMenu from './ShimmerMenu'
 import { CDN_URL } from '../utils/constants'
 import { useParams } from 'react-router'
 import useRestaurantMenu from '../utils/useRestaurantMenu'
+import { useDispatch } from 'react-redux'
+import { addItem, removeItem, clearCart } from '../utils/cartSlice'
+import { useSelector } from 'react-redux'
 
 const { Meta } = Card
 
 const getImageUrl = (id) => `${CDN_URL}${id}`
 
-const IconText = ({ icon, text }) => (
-  <Button icon={React.createElement(icon)}>{text}</Button>
-)
-
 const RestaurantMenu = () => {
   const { resId } = useParams()
   const resInfo = useRestaurantMenu(resId)
+
+  const dispatch = useDispatch()
+
+  const handleAddItem = (item) => {
+    dispatch(addItem(item))
+  }
 
   if (!resInfo) return <ShimmerMenu />
 
@@ -60,7 +65,12 @@ const RestaurantMenu = () => {
                     src={getImageUrl(item.card.info.imageId)}
                     alt={item.card.info.name}
                   />
-                  <IconText icon={PlusOutlined} text="Add" />
+                  <Button
+                    icon={<PlusOutlined />}
+                    onClick={() => handleAddItem(item)}
+                  >
+                    Add
+                  </Button>
                 </Flex>
               }
             >
@@ -70,10 +80,13 @@ const RestaurantMenu = () => {
                 description={
                   <Flex vertical gap="small">
                     {item.card.info.description}
-                    <span>{`₹ ${
-                      item.card.info.price / 100 ||
-                      item.card.info.defaultPrice / 100
-                    }`}</span>
+                    <span>
+                      ₹{' '}
+                      {(
+                        (item.card.info.price ?? item.card.info.defaultPrice) /
+                        100
+                      )}
+                    </span>
                   </Flex>
                 }
               />
