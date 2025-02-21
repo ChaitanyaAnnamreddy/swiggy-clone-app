@@ -2,7 +2,8 @@
 
 This is a Swiggy clone app built using React JS using Ant Design and Parcel.
 
-https://github.com/user-attachments/assets/296ccdbb-8815-42c8-b59d-5133f04a5c5c
+<img width="1470" alt="Screenshot 2025-02-22 at 3 26 42 AM" src="https://github.com/user-attachments/assets/462d5398-9120-420c-8bfc-5ee2c5d41898" />
+
 
 ## React.createElement => ReactElement - JS Object => HTMLElement(render)
 
