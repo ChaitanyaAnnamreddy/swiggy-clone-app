@@ -144,22 +144,16 @@ export const HeaderComponent = ({ searchText, setSearchText }) => {
               },
               {
                 key: '4',
-                label: <Link to="/contact" className='contact-header'>Contact</Link>,
-                icon: <ContactsOutlined />,
-              },
-
-              {
-                key: '5',
                 label: (
-                  <Button
-                    className="user-button"
-                    type="primary"
-                    icon={<UserOutlined />}
-                    style={{ margin: '10px' }}
+                  <Link
+                    to="/contact"
+                    className="contact-header"
+                    style={{ margin: '0 40px 0 0' }}
                   >
-                    {data.loggedInUser}
-                  </Button>
+                    Contact
+                  </Link>
                 ),
+                icon: <ContactsOutlined />,
               },
             ]}
           />
